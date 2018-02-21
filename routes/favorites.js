@@ -9,17 +9,15 @@ var Favorite = require('../models').Favorite;
 //   { id: 3, title: 'Composure', location: 'Donner Summit', grade: '5.6', description: 'Simple fun classic on Snowshed Wall.',}
 // ]
 
-/* GET favorites listings */
+/* GET /favorites */
 router.get('/', function(req, res) {
   Favorite.all({
-    order: [
-      ['createdAt', 'ASC']
-    ]
+    order: [['createdAt', 'ASC']]
   })
   .then( function(favorites) {
-    return res.render('favorites', { favorites: favorites });
+    res.render('favorites', { favorites: favorites })
   })
-});
+})
 
 /* POST add favorites listing */
 router.post('/', function(req, res) {
@@ -30,38 +28,43 @@ router.post('/', function(req, res) {
 
   Favorite.create({ title: title, location: location, grade: grade, description: description })
     .then( function() {
-      res.redirect('/favorites');
-    });
-});
-
-router.delete('/:id', function(req, res) {
-  Favorite.findById(req.params.id)
-    .then( function(favorite) {
-      favorite.destroy()
-    })
-    .then( function() {
-      return res.redirect('/favorites');
+      res.redirect('/favorites')
     })
 })
 
-router.get('/::id/edit', function(req, res) {
+// DELETE /favorite/7
+router.delete('/:id', function(req, res) {
+  Favorite.findById(req.params.id)
+    .then( function(favorite) { favorite.destroy() })
+    .then( function() { return res.redirect('/favorites') })
+})
+
+// GET /favorite/7/edit
+router.get('/:id/edit', function(req, res) {
   Favorite.findById(req.params.id)
     .then( function(favorite) {
-      return res.render('edit', { favorite: favorite });
-    });
-});
+      return res.render('edit', { favorite: favorite })
+  })
+})
 
+// PUT /favorites/7
 router.put('/:id', function(req, res) {
   Favorite.update(
-    {title: req.body.title },
-    {location: req.body.location },
-    {grade: req.body.grade },
-    {description: req.body.description },
-    { where: { id: req.params.id } }
+    { title: req.body.title },
+      { where: { id: req.params.id } },
+
+    { location: req.body.location },
+      { where: { id: req.params.id } },
+
+    { grade: req.body.grade },
+      { where: { id: req.params.id } },
+
+    { description: req.body.description },
+      { where: { id: req.params.id } }
   )
   .then( function() {
-    return res.redirect('/favorites');
+    return res.redirect('/favorites')
   })
-});
+})
 
 module.exports = router;

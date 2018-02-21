@@ -31,8 +31,8 @@
         </thead>
         <tbody>
           <% favorites.forEach( function(favorite) { %>
-            <% var url = "/favorites/" + favorite.id + "?_method=DELETE" %>
             <% var editUrl = "favorites/" + favorite.id + "/edit" %>
+            <% var url = "/favorites/" + favorite.id + "?_method=DELETE" %>
             <tr>
               <td><%= favorite.title %></td>
               <td><%= favorite.location %></td>
@@ -46,8 +46,8 @@
                   <button class="btn red">Delete</button>
                 </form>
               </td>
-            </tr>
-          <% }); %>
+            <% }); %>
+          </tr>
         </tbody>
       </table>
     </div>

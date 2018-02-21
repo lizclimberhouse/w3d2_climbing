@@ -5,9 +5,10 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var methodOverride = require('method-override');
+
 var index = require('./routes/index');
 var favorites = require('./routes/favorites');
-var methodOverride = require('method-override');
 
 // remove // var users = require('./routes/users');
 
@@ -25,10 +26,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(methodOverride('_method'));
+
 app.use('/', index);
 app.use('/favorites', favorites);
-app.use(bodyParser.json());
-app.use(methodOverride('_method'));
+// app.use(bodyParser.json());
 
 // remove // app.use('/users', users);
 
