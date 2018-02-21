@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%include ./partials/head %>
+  </head>
+  <body>
+    <header>
+      <% include ./partials/nav_bar %>
+    </header>
+    <h1 class='center'>My Favorite Routes</h1>
+    <hr />
+    <div class='row'>
+      <div class='col s12 m4'>
+        <h3>Add Route</h3>
+        <form action='/favorites' method='post'>
+          <input type='text' name='title' placeholder='Title' />
+          <input type='text' name='location' placeholder='Location' />
+          <input type='text' name='grade' placeholder='Grade' />
+          <input type='text' name='description' placeholder='Description' />
+          <button class='btn btn-waves' type='submit'>Add</button>
+        </form>
+      </div>
+      <table class='table col m8 s12'>
+        <thead>
+          <th>Name</th>
+          <th>Location</th>
+          <th>Grade</th>
+          <th>Description</th>
+          <th>Edit</th>
+          <th>x</th>
+        </thead>
+        <tbody>
+          <% favorites.forEach( function(favorite) { %>
+            <% var url = "/favorites/" + favorite.id + "?_method=DELETE" %>
+            <% var editUrl = "favorites/" + favorite.id + "/edit" %>
+            <tr>
+              <td><%= favorite.title %></td>
+              <td><%= favorite.location %></td>
+              <td><%= favorite.grade %></td>
+              <td><%= favorite.description %></td>
+              <td>
+                  <a class="btn" href=<%= editUrl %>>Edit</a>
+              </td>
+              <td>
+                <form method="POST" action=<%= url %>>
+                  <button class="btn red">Delete</button>
+                </form>
+              </td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>

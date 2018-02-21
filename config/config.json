@@ -1,0 +1,10 @@
+{
+  "development": {
+    "username": "house",
+    "password": null,
+    "database": "favorites_dev",
+    "host": "127.0.0.1",
+    "port": 5432,
+    "dialect": "postgres"
+  }
+}

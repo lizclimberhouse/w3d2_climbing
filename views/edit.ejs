@@ -1,0 +1,22 @@
+<html>
+  <head>
+    <% include ./partials/head %>
+  </head>
+  <body>
+    <header>
+      <% include ./partials/nav_bar %>
+    </header>
+    <div class="container">
+      <% var url = "/favorites/" + favorite.id + "?_method=PUT" %>
+      <form method="POST" action=<%= url %> >
+        <input required name="title" value=<%= favorite.title %> />
+        <input required name="location" value=<%= favorite.location %> />
+        <input required name="grade" value=<%= favorite.grade %> />
+        <input required name="description" value=<%= favorite.description %> />
+
+        <a href="/favorites" class="btn red">Cancel</a>
+        <button class="btn">Save</button>
+     </form>
+   </div>
+  </body>
+</html>
